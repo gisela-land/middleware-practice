@@ -1,7 +1,23 @@
 // app.js
 const express = require('express')
+const moment = require('moment')
 const app = express()
 const port = 3000
+
+// Ignore favicon
+app.use(function (req, res, next) {
+  if (req.originalUrl.includes('favicon.ico')) {
+    return res.status(204)
+  }
+  next()
+})
+
+// Get server log
+app.use(function (req, res, next) {
+  const inTime = moment().format('YYYY-MM-DD HH:m:s')
+  console.log(`${inTime} | ${req.method} from ${req.originalUrl}`)
+  next()
+})
 
 app.get('/', (req, res) => {
   res.send('列出全部 Todo')
