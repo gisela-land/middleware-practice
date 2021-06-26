@@ -16,7 +16,7 @@ app.use(function (req, res, next) {
 app.use(function (req, res, next) {
   // log request time
   const reqMoment = moment()
-  const reqTime = reqMoment.format('YYYY-MM-DD HH:m:s')
+  const reqTime = reqMoment.format('YYYY-MM-DD HH:mm:ss')
   const requestLog = `${reqTime} | ${req.method} from ${req.originalUrl}`
   console.log(requestLog)
 
