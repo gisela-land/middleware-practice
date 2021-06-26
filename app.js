@@ -14,8 +14,20 @@ app.use(function (req, res, next) {
 
 // Get server log
 app.use(function (req, res, next) {
-  const inTime = moment().format('YYYY-MM-DD HH:m:s')
-  console.log(`${inTime} | ${req.method} from ${req.originalUrl}`)
+  // log request time
+  const reqMoment = moment()
+  const reqTime = reqMoment.format('YYYY-MM-DD HH:m:s')
+  const requestLog = `${reqTime} | ${req.method} from ${req.originalUrl}`
+  console.log(requestLog)
+
+  // log response time
+  res.on('finish', () => {
+    const resMsTime = moment().valueOf()
+    const timeGap = resMsTime - reqMoment.valueOf()
+    const responseLog = `${requestLog} | total time: ${timeGap}ms`
+    console.log(responseLog)
+  })
+
   next()
 })
 
